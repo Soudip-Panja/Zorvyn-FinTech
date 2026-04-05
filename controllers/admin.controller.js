@@ -2,25 +2,48 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-const verifyJwt = require("../middleware/auth.middleware");
-const { SECRET_KEY, JWT_SECRET, EMAIL: ADMIN_EMAIL } = require("../config/env");
+const { JWT_SECRET } = require("../config/env");
 
-router.post("/login", (req, res) => {
-  const { email, secret } = req.body;
+const User = require("../models/users.model");
 
-  if (email === ADMIN_EMAIL && secret === SECRET_KEY) {
-    const token = jwt.sign({ role: "admin", email: email }, JWT_SECRET, {
-      expiresIn: "24h",
-    });
+router.post("/login", async (req, res) => {
+  try {
+    const { email, secret } = req.body;
 
-    return res.json({ token: token });
-  } else {
-    return res.status(401).json({ message: "Access Denied" });
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.password !== secret) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    if (user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied. Admin only." });
+    }
+
+    const token = jwt.sign(
+      {
+        role: user.role,
+        email: user.email,
+        userId: user._id,
+      },
+      JWT_SECRET,
+      { expiresIn: "24h" },
+    );
+
+    return res.json({ token });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 });
 
+const verifyJwt = require("../middleware/auth.middleware");
+
 router.get("/admin", verifyJwt, (req, res) => {
-  res.json({ message: "Protected route accessable." });
+  res.json({ message: "Protected route accessible." });
 });
 
 module.exports = router;
