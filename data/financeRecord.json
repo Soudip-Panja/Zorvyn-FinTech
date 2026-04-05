@@ -1,0 +1,82 @@
+[
+  {
+    "amount": 5000,
+    "type": "income",
+    "category": "Salary",
+    "date": "2026-04-01",
+    "notes": "Monthly salary credited",
+    "recordBy": "69d23a4d3efc4ea4dea23e87"
+  },
+  {
+    "amount": 1200,
+    "type": "expense",
+    "category": "Groceries",
+    "date": "2026-04-02",
+    "notes": "Bought vegetables and fruits",
+    "recordBy": "69d23a4e3efc4ea4dea23e89"
+  },
+  {
+    "amount": 300,
+    "type": "expense",
+    "category": "Transport",
+    "date": "2026-04-02",
+    "notes": "Auto and bus fare",
+    "recordBy": "69d23a4e3efc4ea4dea23e8a"
+  },
+  {
+    "amount": 15000,
+    "type": "income",
+    "category": "Freelance",
+    "date": "2026-04-03",
+    "notes": "Website project payment",
+    "recordBy": "69d23a4e3efc4ea4dea23e8b"
+  },
+  {
+    "amount": 2000,
+    "type": "expense",
+    "category": "Shopping",
+    "date": "2026-04-03",
+    "notes": "Clothes purchase",
+    "recordBy": "69d23a4e3efc4ea4dea23e8c"
+  },
+  {
+    "amount": 800,
+    "type": "expense",
+    "category": "Food",
+    "date": "2026-04-04",
+    "notes": "Restaurant dinner",
+    "recordBy": "69d23a4d3efc4ea4dea23e87"
+  },
+  {
+    "amount": 2500,
+    "type": "income",
+    "category": "Bonus",
+    "date": "2026-04-04",
+    "notes": "Performance bonus",
+    "recordBy": "69d23a4e3efc4ea4dea23e89"
+  },
+  {
+    "amount": 1000,
+    "type": "expense",
+    "category": "Utilities",
+    "date": "2026-04-05",
+    "notes": "Electricity bill",
+    "recordBy": "69d23a4e3efc4ea4dea23e8a"
+  },
+  {
+    "amount": 7000,
+    "type": "income",
+    "category": "Investment",
+    "date": "2026-04-05",
+    "notes": "Stock profit",
+    "recordBy": "69d23a4e3efc4ea4dea23e8b"
+  },
+  {
+    "amount": 400,
+    "type": "expense",
+    "category": "Entertainment",
+    "date": "2026-04-05",
+    "notes": "Movie tickets",
+    "recordBy": "69d23a4e3efc4ea4dea23e8c"
+  }
+]
