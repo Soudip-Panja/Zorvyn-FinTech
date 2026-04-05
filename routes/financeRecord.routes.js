@@ -99,4 +99,32 @@ router.post("/records/:id", async (req, res) => {
   }
 });
 
+//Delete record
+async function deleteRecord(recordId) {
+  try {
+    const deletedRecord = await FinancialRecord.findByIdAndDelete(recordId);
+
+    if (!deletedRecord) {
+      throw new Error(`Record with ID ${recordId} not found.`);
+    }
+
+    return deletedRecord;
+  } catch (error) {
+    console.log("Error deleting record.", error.message);
+    throw error;
+  }
+}
+
+router.delete("/records/:id", async (req, res) => {
+  try {
+    const data = await deleteRecord(req.params.id);
+    res.status(200).json({
+      message: "Record deleted successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
