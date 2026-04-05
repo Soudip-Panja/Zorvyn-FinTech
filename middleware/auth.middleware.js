@@ -10,6 +10,11 @@ const verifyJWT = (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, JWT_SECRET);
+
+    if (decodedToken.role !== "admin") {
+      return res.status(403).json({ message: "Access denied. Admin only." });
+    }
+
     req.user = decodedToken;
     next();
   } catch (error) {

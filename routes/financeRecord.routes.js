@@ -4,6 +4,9 @@ const router = express.Router();
 const FinancialRecord = require("../models/financeRecord.model");
 const User = require("../models/users.model");
 
+const verifyJwt = require("../middleware/auth.middleware");
+router.use(verifyJwt);
+
 //Creating new financial record
 async function createRecord(newRecord) {
   try {
