@@ -1,49 +1,16 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const cors = require("cors");
-require("dotenv").config();
+
+const adminRoutes = require("./controllers/admin.controller"); // ✅ changed path
+const { PORT } = require("./config/env");
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const SECRET_KEY = process.env.SECRET_KEY;
-const JWT_SECRET = process.env.JWT_SECRET;
-const EMAIL = process.env.EMAIL;
-
-const verifyJWT = (req, res, next) => {
-  const token = req.headers["authorization"];
-
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
-  try {
-    const decodedToken = jwt.verify(token, JWT_SECRET);
-    req.user = decodedToken;
-    next();
-  } catch (error) {
-    return res.status(402).json({ message: "Invalid Token." });
-  }
-};
-
-app.post("/admin/login", (req, res) => {
-  const { secret } = req.body;
-  if (secret === SECRET_KEY) {
-    const token = jwt.sign({ role: "admin", email: EMAIL }, JWT_SECRET, {
-      expiresIn: "24h",
-    });
-    res.json({ token });
-  } else {
-    res.json({ message: "Invalid Secret" });
-  }
-});
-
-app.get("/admin/api/data", verifyJWT, (req, res) => {
-  res.json({ message: "Protected route accessable" });
-});
-
-const PORT = process.env.PORT || 3000;
+app.use("/admin", adminRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
