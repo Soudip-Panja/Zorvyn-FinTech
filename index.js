@@ -1,12 +1,15 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 require("dotenv").config();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const SECRET_KEY = process.env.SECRET_KEY;
 const JWT_SECRET = process.env.JWT_SECRET;
+const EMAIL = process.env.EMAIL;
 
 const verifyJWT = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -15,7 +18,6 @@ const verifyJWT = (req, res, next) => {
     return res.status(401).json({ message: "No token provided" });
   }
   try {
-    // console.log(token);
     const decodedToken = jwt.verify(token, JWT_SECRET);
     req.user = decodedToken;
     next();
@@ -27,7 +29,9 @@ const verifyJWT = (req, res, next) => {
 app.post("/admin/login", (req, res) => {
   const { secret } = req.body;
   if (secret === SECRET_KEY) {
-    const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "24h" });
+    const token = jwt.sign({ role: "admin", email: EMAIL }, JWT_SECRET, {
+      expiresIn: "24h",
+    });
     res.json({ token });
   } else {
     res.json({ message: "Invalid Secret" });
