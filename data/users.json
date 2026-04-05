@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Zorvyn",
+    "email": "zorvynadmin@gmail.com",
+    "password": "zorvynAdmin123",
+    "role": "admin",
+    "status": "active"
+  },
+  {
+    "name": "Soudip Panja",
+    "email": "soudip03panja@gmail.com",
+    "password": "soudip@123",
+    "role": "analyst",
+    "status": "active"
+  },
+  {
+    "name": "Radha Kumari",
+    "email": "radha@gmail.com",
+    "password": "radha@123",
+    "role": "viewer",
+    "status": "active"
+  },
+  {
+    "name": "Pratik Roy",
+    "email": "pratik@gmail.com",
+    "password": "pratik123",
+    "role": "analyst",
+    "status": "inactive"
+  },
+  {
+    "name": "Sarothi",
+    "email": "sarothi@gmail.com",
+    "password": "saro#123",
+    "role": "viewer",
+    "status": "inactive"
+  }
+]
