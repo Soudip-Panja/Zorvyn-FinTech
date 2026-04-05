@@ -1,6 +1,9 @@
 const { initializeDatabase } = require("./db/db.connect");
 initializeDatabase();
 
+const { seedUser } = require("./seedData/usersSeeding");
+// seedUser();
+
 const express = require("express");
 const cors = require("cors");
 
