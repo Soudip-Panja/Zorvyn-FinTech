@@ -4,6 +4,9 @@ initializeDatabase();
 const { seedUser } = require("./seedData/usersSeeding");
 // seedUser();
 
+const { seedFinanceRecord } = require("./seedData/financeRecordSeeding");
+// seedFinanceRecord()
+
 const express = require("express");
 const cors = require("cors");
 

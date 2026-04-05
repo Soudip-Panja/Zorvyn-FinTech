@@ -17,6 +17,7 @@ async function seedUser() {
       //   console.log(newUser);
       await newUser.save();
     }
+    console.log("User data successfully seeded.");
   } catch (error) {
     console.log("Error seeding data:", error);
   }
