@@ -143,7 +143,9 @@ Authorization: <your_token>
 
 #### Example:
 ```
-GET /v1/finance-records/filter?type=income&category=salary
+TYPE FILTER:- /v1/finance-records/filter?type=income
+CATEGORY FILTER:- /v1/finance-records/filter?category=Food
+DATE FILTER:- /v1/finance-records/filter?startDate=2026-04-03&endDate=2026-04-03
 ```
 
 ---
