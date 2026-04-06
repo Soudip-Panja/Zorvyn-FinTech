@@ -130,4 +130,63 @@ router.delete("/:id", allowRoles("admin"), async (req, res) => {
   }
 });
 
+// Filter records
+async function filterRecords(filters) {
+  try {
+    let query = {};
+
+    // Filter by type (income / expense)
+    if (filters.type) {
+      query.type = filters.type;
+    }
+
+    // Filter by category
+    if (filters.category) {
+      query.category = filters.category;
+    }
+
+    // Filter by date range
+    if (filters.startDate || filters.endDate) {
+      query.date = {};
+
+      if (filters.startDate) {
+        query.date.$gte = new Date(filters.startDate);
+      }
+
+      if (filters.endDate) {
+        query.date.$lte = new Date(filters.endDate);
+      }
+    }
+
+    const records = await FinancialRecord.find(query).populate(
+      "recordBy",
+      "name email role",
+    );
+
+    return records;
+  } catch (error) {
+    console.log("Error filtering records.", error.message);
+    throw error;
+  }
+}
+
+router.get("/filter", allowRoles("admin"), async (req, res) => {
+  try {
+    const { type, category, startDate, endDate } = req.query;
+
+    const filters = {
+      type,
+      category,
+      startDate,
+      endDate,
+    };
+
+    const data = await filterRecords(filters);
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
