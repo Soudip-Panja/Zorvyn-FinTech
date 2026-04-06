@@ -7,17 +7,7 @@ const User = require("../models/users.model");
 const verifyJwt = require("../middleware/auth.middleware");
 router.use(verifyJwt);
 
-//ROLE CHECK FUNCTION
-function allowRoles(...roles) {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        message: `Access denied for role: ${req.user.role}`,
-      });
-    }
-    next();
-  };
-}
+const allowRoles = require("../middleware/role.middleware");
 
 //Creating new financial record
 async function createRecord(newRecord) {
