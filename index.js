@@ -16,10 +16,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const adminRoutes = require("./controllers/admin.controller");
+const authRoutes = require("./controllers/auth.controller");
 const financeRecordRoutes = require("./routes/financeRecord.routes");
 
-app.use("/admin", adminRoutes);
+app.use("/auth", authRoutes);
 app.use("/finance", financeRecordRoutes);
 
 app.listen(PORT, () => {
