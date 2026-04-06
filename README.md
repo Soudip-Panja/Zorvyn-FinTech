@@ -110,6 +110,16 @@ Authorization: <your_token>
 
 ---
 
+### 🔐 Demo Login Credentials
+
+| Email | Password | Role |
+|------|----------|------|
+| zorvynadmin@gmail.com | zorvynAdmin123 | Admin |
+| soudip03panja@gmail.com | soudip@123 | Analyst |
+| radha@gmail.com | radha@123 | Viewer |
+
+---
+
 ## 📡 RESTful API Endpoints
 
 > All endpoints follow RESTful API conventions
@@ -142,11 +152,12 @@ Authorization: <your_token>
 | GET | /v1/finance-records/filter | Admin | Filter records |
 
 #### Example:
-```
-TYPE FILTER:- /v1/finance-records/filter?type=income
-CATEGORY FILTER:- /v1/finance-records/filter?category=Food
-DATE FILTER:- /v1/finance-records/filter?startDate=2026-04-03&endDate=2026-04-03
-```
+
+| Description | Example |
+|------------|---------|
+| Filter records by type | /v1/finance-records/filter?type=income |
+| Filter by category | /v1/finance-records/filter?category=Food |
+| Filter by date range | /v1/finance-records/filter?startDate=2026-04-03&endDate=2026-04-03 |
 
 ---
 
