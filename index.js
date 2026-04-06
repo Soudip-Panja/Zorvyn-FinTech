@@ -22,6 +22,7 @@ const financeRecordRoutes = require("./routes/financeRecord.routes");
 app.use("/v1/auth", authRoutes);
 app.use("/v1/finance-records", financeRecordRoutes);
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
