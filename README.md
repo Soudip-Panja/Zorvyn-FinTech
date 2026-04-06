@@ -75,7 +75,7 @@ MONGODB=your_mongodb_connection_string
 
 ### 3. Run the server
 ```bash
-node app.js
+node index.js
 ```
 
 ---
