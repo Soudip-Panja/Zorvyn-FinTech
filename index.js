@@ -19,8 +19,8 @@ app.use(cors());
 const authRoutes = require("./controllers/auth.controller");
 const financeRecordRoutes = require("./routes/financeRecord.routes");
 
-app.use("/auth", authRoutes);
-app.use("/finance", financeRecordRoutes);
+app.use("/v1/auth", authRoutes);
+app.use("/v1/finance-records", financeRecordRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

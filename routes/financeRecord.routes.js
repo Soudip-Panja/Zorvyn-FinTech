@@ -40,7 +40,7 @@ async function createRecord(newRecord) {
   }
 }
 
-router.post("/records", allowRoles("admin"), async (req, res) => {
+router.post("/", allowRoles("admin"), async (req, res) => {
   try {
     const data = await createRecord(req.body);
     res.status(201).json(data);
@@ -64,7 +64,7 @@ async function getAllRecords() {
   }
 }
 
-router.get("/records", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await getAllRecords();
     res.status(200).json(data);
@@ -93,7 +93,7 @@ async function updateRecord(recordId, updatedData) {
   }
 }
 
-router.post("/records/:id", allowRoles("admin"), async (req, res) => {
+router.post("/:id", allowRoles("admin"), async (req, res) => {
   try {
     const data = await updateRecord(req.params.id, req.body);
     res.status(200).json(data);
@@ -118,7 +118,7 @@ async function deleteRecord(recordId) {
   }
 }
 
-router.delete("/records/:id", allowRoles("admin"), async (req, res) => {
+router.delete("/:id", allowRoles("admin"), async (req, res) => {
   try {
     const data = await deleteRecord(req.params.id);
     res.status(200).json({
