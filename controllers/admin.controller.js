@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 const { JWT_SECRET } = require("../config/env");
-
 const User = require("../models/users.model");
 
 router.post("/login", async (req, res) => {
@@ -19,11 +18,6 @@ router.post("/login", async (req, res) => {
     if (user.password !== password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-
-    if (user.role !== "admin") {
-      return res.status(403).json({ message: "Access denied. Admin only." });
-    }
-
     const token = jwt.sign(
       {
         role: user.role,
@@ -34,7 +28,10 @@ router.post("/login", async (req, res) => {
       { expiresIn: "24h" },
     );
 
-    return res.json({ token });
+    return res.json({
+      token,
+      role: user.role,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

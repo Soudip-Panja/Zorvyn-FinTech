@@ -7,6 +7,18 @@ const User = require("../models/users.model");
 const verifyJwt = require("../middleware/auth.middleware");
 router.use(verifyJwt);
 
+//ROLE CHECK FUNCTION
+function allowRoles(...roles) {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: `Access denied for role: ${req.user.role}`,
+      });
+    }
+    next();
+  };
+}
+
 //Creating new financial record
 async function createRecord(newRecord) {
   try {
@@ -31,8 +43,6 @@ async function createRecord(newRecord) {
       "name email role",
     );
 
-    console.log(populatedRecord);
-
     return populatedRecord;
   } catch (error) {
     console.log("Error creating new record.", error.message);
@@ -40,7 +50,7 @@ async function createRecord(newRecord) {
   }
 }
 
-router.post("/records", async (req, res) => {
+router.post("/records", allowRoles("admin"), async (req, res) => {
   try {
     const data = await createRecord(req.body);
     res.status(201).json(data);
@@ -93,7 +103,7 @@ async function updateRecord(recordId, updatedData) {
   }
 }
 
-router.post("/records/:id", async (req, res) => {
+router.post("/records/:id", allowRoles("admin"), async (req, res) => {
   try {
     const data = await updateRecord(req.params.id, req.body);
     res.status(200).json(data);
@@ -118,7 +128,7 @@ async function deleteRecord(recordId) {
   }
 }
 
-router.delete("/records/:id", async (req, res) => {
+router.delete("/records/:id", allowRoles("admin"), async (req, res) => {
   try {
     const data = await deleteRecord(req.params.id);
     res.status(200).json({
