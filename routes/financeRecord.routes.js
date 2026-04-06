@@ -189,4 +189,80 @@ router.get("/filter", allowRoles("admin"), async (req, res) => {
   }
 });
 
+// Complete Dashboard Summary
+async function getDashboardSummary() {
+  try {
+    // Total Income
+    const incomeResult = await FinancialRecord.aggregate([
+      { $match: { type: "income" } },
+      { $group: { _id: null, total: { $sum: "$amount" } } },
+    ]);
+
+    const totalIncome = incomeResult[0]?.total || 0;
+
+    // Total Expense
+    const expenseResult = await FinancialRecord.aggregate([
+      { $match: { type: "expense" } },
+      { $group: { _id: null, total: { $sum: "$amount" } } },
+    ]);
+
+    const totalExpenses = expenseResult[0]?.total || 0;
+
+    // Net Balance
+    const netBalance = totalIncome - totalExpenses;
+
+    // Category Wise
+    const categoryTotals = await FinancialRecord.aggregate([
+      {
+        $group: {
+          _id: "$category",
+          total: { $sum: "$amount" },
+        },
+      },
+    ]);
+
+    // Recent Activity (last 5)
+    const recentActivity = await FinancialRecord.find()
+      .sort({ date: -1 })
+      .limit(5)
+      .populate("recordBy", "name email role");
+
+    // Monthly Trends
+    const monthlyTrends = await FinancialRecord.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: "$date" },
+            month: { $month: "$date" },
+          },
+          total: { $sum: "$amount" },
+        },
+      },
+      { $sort: { "_id.year": 1, "_id.month": 1 } },
+    ]);
+
+    return {
+      totalIncome,
+      totalExpenses,
+      netBalance,
+      categoryTotals,
+      recentActivity,
+      monthlyTrends,
+    };
+  } catch (error) {
+    console.log("Error generating dashboard summary.", error.message);
+    throw error;
+  }
+}
+
+//Summary Route
+router.get("/summary", allowRoles("admin"), async (req, res) => {
+  try {
+    const data = await getDashboardSummary();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
