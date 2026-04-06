@@ -1,10 +1,10 @@
 const { initializeDatabase } = require("./db/db.connect");
 initializeDatabase();
 
-const { seedUser } = require("./seedData/usersSeeding");
+// const { seedUser } = require("./seedData/usersSeeding");
 // seedUser();
 
-const { seedFinanceRecord } = require("./seedData/financeRecordSeeding");
+// const { seedFinanceRecord } = require("./seedData/financeRecordSeeding");
 // seedFinanceRecord()
 
 const express = require("express");
@@ -21,7 +21,6 @@ const financeRecordRoutes = require("./routes/financeRecord.routes");
 
 app.use("/v1/auth", authRoutes);
 app.use("/v1/finance-records", financeRecordRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

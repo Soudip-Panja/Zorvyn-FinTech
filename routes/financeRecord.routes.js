@@ -256,7 +256,7 @@ async function getDashboardSummary() {
 }
 
 //Summary Route
-router.get("/summary", allowRoles("admin"), async (req, res) => {
+router.get("/summary", allowRoles("admin", "analyst"), async (req, res) => {
   try {
     const data = await getDashboardSummary();
     res.status(200).json(data);
