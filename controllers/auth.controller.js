@@ -39,8 +39,5 @@ router.post("/login", async (req, res) => {
 
 const verifyJwt = require("../middleware/auth.middleware");
 
-router.get("/admin", verifyJwt, (req, res) => {
-  res.json({ message: "Protected route accessible." });
-});
 
 module.exports = router;
