@@ -1,5 +1,6 @@
 const fs = require("fs");
 const financialRecord = require("../models/financeRecord.model");
+const { route } = require("../controllers/auth.controller");
 
 const jsonData = fs.readFileSync("./data/financeRecord.json", "utf-8");
 const financeData = JSON.parse(jsonData);
